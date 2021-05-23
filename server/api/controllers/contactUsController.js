@@ -21,10 +21,15 @@ exports.addMessage = (req,res) => {
     );
     data.save(function (err) {
         if (err) {
+            res.send({
+                status : false,
+                message:'Not able to send message '
+            })
             console.log(err);
         }
         res.send({
-            message:'hello'
+            status : true,
+            message:'Message Sent Succcessfully'
         })
     })
 }
@@ -37,7 +42,7 @@ exports.getAllMessages = (req,res) => {
     const fields = [
         {
           label: 'Name',
-          value: 'name'
+          value: 'fname'
         },
         {
           label: 'Email',
@@ -50,8 +55,7 @@ exports.getAllMessages = (req,res) => {
       ];
     queriesModel.find({}, function (err, messages) {
         if (err) return console.log(err);
-        res.send(messages)
-        // downloadCsv(res, 'users.csv', fields, messages);
+        downloadCsv(res, 'users.csv', fields, messages);
     });
 
 }

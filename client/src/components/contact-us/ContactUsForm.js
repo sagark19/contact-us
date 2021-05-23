@@ -9,10 +9,11 @@ function ContactUsForm() {
     const handleSubmit = (e) => {
       e.preventDefault();
       addMessage(contactForm).then((res) => {
+        console.log(res);
         setContactForm({fname:'',email:'',message:''});
-        toast.success('Successfully created!');
+        res.data.status ? toast.success(res.data.message) :toast.error(res.data.message);   
       }).catch(err => {
-        toast.error('This did not work')
+        toast.error('something Went Wrong!')
         console.log(err);
       })
     }
